@@ -21,14 +21,14 @@ typedef struct BusMap {
     Station* stations;//站点数组
     int station_num;//站点数
     int bus_num;//公交线路数
-    bool visited;//遍历时的标志符
+    //bool visited;//遍历时的标志符
 }BusMap;
 
-typedef struct Path {
-    int station_num;//路径中站点数
-    char** stations;//路径中各站点数组
-    char** buses;//站点与站点之间的路径数组
-    int transfer;//换乘次数
-    int need_time;//所需时间
-    struct Path* next;//指向下一个路径节点
-}Path;
+/* typedef struct Path { */
+/*     int station_num;//路径中站点数 */
+/*     char** stations;//路径中各站点数组 */
+/*     char** buses;//站点与站点之间的路径数组 */
+/*     int transfer;//换乘次数 */
+/*     int need_time;//所需时间 */
+/*     struct Path* next;//指向下一个路径节点 */
+/* }Path; */
