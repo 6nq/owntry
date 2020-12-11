@@ -19,7 +19,8 @@ int FindStaion(char* station);//查找Staion对象，返回其索引号
 int GetStaion(char* station);//插入一个站点并返回其编号,若存在则直接返回编号
 void AddBus(const char* bus,const char* pstart,const char* pend);//添加公交车信息
 Status AddRoute(const char* pbus,const char* pstart,const char* pend,int distance);//添加路段信息，形成邻接表
-void QueryStation(char* pStation,char** buses);//查询站点信息，输出该站点所经过路线信息
+int QueryStation(char* pStation);//查询站点信息，输出该站点所经过路线信息
+int QueryBus(char* pbus);
 
 void Load(){
     LoadBusMap();
@@ -130,12 +131,38 @@ Status AddRoute(char* pbus,char* pstart,char* pend,int distance){
     
     return ST_OK;
 }
-void QueryStation(char* pStation){
+int QueryStation(char* pStation){
     int nstation = FindStaion(pStation);
-    for (int i = 0; i < ROUTE_NUM; ++i) {
-        if(ROUTES[i][1] == nstation)
-            printf("%s\n",BUSES[ ROUTES[i][0] ][0]);
-        if(ROUTES[i][2] == nstation)
-            printf("%s\n",BUSES[ ROUTES[i][0] ][0]);
+    int num = 0;
+    Route* route = map.stations[nstation].routes;
+    while (route != NULL) {
+        printf("%s\n",map.buses[route->bus].name);
+        route = route->next;
+        num++;
     }
+    return num;
+}
+int QueryBus(char* pbus){
+    int nbus = FindBus(pbus);
+    int start = map.buses[nbus].start;
+    int end = map.buses[nbus].end;
+    int num = 0;
+    printf("[%s] 从%s出发，%s为终点\n",pbus,map.stations[start].station,map.stations[end].station);
+
+    Route* route = map.stations[start].routes;
+    while (route != NULL) {
+        if(nbus  != route->bus) {
+            route =route->next; 
+            continue;
+        }
+        ++num;
+        start =  route->station;
+        if(start != end){
+            printf("%s->",map.stations[start].station);
+            route = map.stations[start].routes;
+            continue;
+        }
+        printf("%s\n",map.stations[end].station);
+    }
+    return num;
 }

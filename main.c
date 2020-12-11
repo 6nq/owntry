@@ -6,6 +6,8 @@
 
 void run();
 void print();
+void FindStationinfo();
+void FindBusinfo();
 
 int main(void)
 {
@@ -31,6 +33,7 @@ void run(){
             case '1':
                 break;
             case '2':
+                FindStationinfo();
                 break;
             case '3':
                 break;
@@ -43,3 +46,22 @@ void run(){
     }
 }
 
+void FindStationinfo(){
+    printf("===== 查询站点信息 =====\n");
+    printf("请输入要查询的站点名:");
+    char stationname[30];
+    scanf("%s",stationname);
+    printf("------------------------\n");
+    printf("[%s站]:\n",stationname);
+    int sum = QueryStation(stationname);
+    printf("共%d辆车经过\n",sum);
+}
+void FindBusinfo(){
+    printf("===== 查询公交信息 =====\n");
+    printf("请输入要查询的公交名:");
+    char busname[30];
+    scanf("%s",busname);
+    printf("------------------------\n");
+    int sum = QueryBus(busname);
+    printf("共%d辆车经过。\n",sum);
+}
