@@ -1,0 +1,23 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	//
+bhead	bus.cpp	/^struct bus *bhead=NULL;\/\/放公汽信息的头指针$/;"	v	typeref:struct:bus *
+bi	bus.cpp	/^struct bus *bi=NULL; \/\/放公汽信息的最后的指针$/;"	v	typeref:struct:bus *
+delb	bus.cpp	/^void delb()$/;"	f	typeref:typename:void
+initial	bus.cpp	/^void initial()$/;"	f	typeref:typename:void
+lookb	bus.cpp	/^void lookb()$/;"	f	typeref:typename:void
+lookr	bus.cpp	/^void lookr()$/;"	f	typeref:typename:void
+main	main.cpp	/^int main()$/;"	f	typeref:typename:int
+modifyb	bus.cpp	/^void modifyb()$/;"	f	typeref:typename:void
+modifyr	bus.cpp	/^void modifyr(){$/;"	f	typeref:typename:void
+newb	bus.cpp	/^void newb()$/;"	f	typeref:typename:void
+release	bus.cpp	/^void release()$/;"	f	typeref:typename:void
+save	bus.cpp	/^void save()$/;"	f	typeref:typename:void
+show1	show.cpp	/^    void show1()$/;"	f	typeref:typename:void
+show2	show.cpp	/^    void show2()$/;"	f	typeref:typename:void
+show3	show.cpp	/^    void show3()$/;"	f	typeref:typename:void
+showb	bus.cpp	/^void showb()$/;"	f	typeref:typename:void
