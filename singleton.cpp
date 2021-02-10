@@ -5,7 +5,6 @@ template<typename T>
 class Singleton
 {
 public:
-    friend T;
     static T& getInstance(){
         static T instance{token()};
         return instance;
