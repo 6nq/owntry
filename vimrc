@@ -116,12 +116,12 @@ call plug#begin('~/.vim/plugged')
         nnoremap <F10> :call asyncrun#quickfix_toggle(6)<cr>
         "F9 为编译单文件:
         " C Compiler:
-        autocmd FileType c nnoremap <silent> <F9> :AsyncRun gcc  -Wall  -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/_$(VIM_FILENOEXT)" -lapue <cr>        
+        autocmd FileType c nnoremap <silent> <F9> :AsyncRun gcc  -Wall  -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT).o" -lapue <cr>        
         " C++ Compiler
         "autocmd FileType cpp nnoremap <silent> <F9> :AsyncRun  g++  -Wall -O2 "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT).o" <cr>        
         " C++20 Compiler
         "autocmd FileType cpp nnoremap <silent> <F9> :AsyncRun g++ "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT).o" -Ofast -std=c++20 -s -flto <cr>
-        autocmd FileType cpp nnoremap <silent> <F9> :AsyncRun g++ "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/_$(VIM_FILENOEXT)"  -std=c++20 -s  <cr>
+        autocmd FileType cpp nnoremap <silent> <F9> :AsyncRun g++ "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT).o"  -std=c++20 -s  <cr>
         " Python Interpreter
         autocmd FileType python nnoremap <silent> <F9> :!python % <CR>
         "mzscheme
@@ -131,11 +131,11 @@ call plug#begin('~/.vim/plugged')
         "vimscript
         autocmd FileType vim nnoremap <silent>
         "F5为运行文件
-        nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/_$(VIM_FILENOEXT)" <cr>
+        nnoremap <silent> <F5> :AsyncRun -raw -cwd=$(VIM_FILEDIR) "$(VIM_FILEDIR)/$(VIM_FILENOEXT).o" <cr>
         "F7编译整个项目
         let g:asyncrun_rootmarks = ['.svn', '.git', '.root', '_darcs', 'build.xml'] 
         nnoremap <silent> <F7> :AsyncRun -cwd=<root> make <cr>
-        "运行当前项目
+        "F8运行当前项目
         nnoremap <silent> <F8> :AsyncRun -cwd=<root> -raw make run <cr>
         "F6执行测试
         nnoremap <silent> <F6> :AsyncRun -cwd=<root> -raw make test <cr>
@@ -143,7 +143,7 @@ call plug#begin('~/.vim/plugged')
         nnoremap <silent> <F4> :AsyncRun -cwd=<root> cmake . <cr>
         "由于 C/C++ 标准库的实现方式是发现在后台运行时会缓存标准输出直到程序退出，你想实时看到 printf 输出的话需要 fflush(stdout) 一下，或者程序开头关闭缓存：setbuf(stdout, NULL); 即可。
         "同时，如果你开发 C++ 程序使用 std::cout 的话，后面直接加一个 std::endl 就强制刷新缓存了，不需要弄其他。而如果你在 Windows 下使用 GVim 的话，可以弹出新的 cmd.exe 窗口来运行刚才的程序：
-        nnoremap <silent> <F5> :AsyncRun -cwd=$(VIM_FILEDIR) -mode=4 "$(VIM_FILEDIR)/_$(VIM_FILENOEXT)" <cr>
+        nnoremap <silent> <F5> :AsyncRun -cwd=$(VIM_FILEDIR) -mode=4 "$(VIM_FILEDIR)/$(VIM_FILENOEXT).o" <cr>
         nnoremap <silent> <F8> :AsyncRun -cwd=<root> -mode=4 make run <cr>
         
         "F4：使用 cmake 生成 Makefile
@@ -386,7 +386,7 @@ call plug#begin('~/.vim/plugged')
 
         let g:AutoPairs = {'(':')', '[':']', '{':'}',"'":"'",'"':'"'}
             "设置要自动配对的符号
-        let g:AutoPairs['<']='>'
+        "let g:AutoPairs['<']='>'
             "添加要自动配对的符号<>
         "let b:AutoPairs = g:AutoParis
             ""设置要自动配对的符号，默认为g:AutoPairs，可以通过自动命令来对不同文件类型设置不同自动匹配对符号。
