@@ -8,18 +8,17 @@ using namespace std;
 class Station
 {
 private:
+    int no;
     size_t len;
-    char name[];
 
 public:
     Station(){};
     void print(){
         cout<< len <<endl;
         cout<< sizeof(len) <<endl;
-        cout<< name << endl;
 
     }
-    ~Station();
+    ~Station(){};
 };
 
 #endif /* STATION_H */
