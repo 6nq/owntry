@@ -154,25 +154,6 @@ call plug#begin('~/.vim/plugged')
         "F9：单文件：编译
         "F10：打开/关闭底部的 quickfix 窗口
 
-    "Plug 'ludovicchabant/vim-gutentags'
-        "" gutentags 搜索工程目录的标志，碰到这些文件/目录名就停止向上一级目录递归
-        "let g:gutentags_project_root = ['.root', '.svn', '.git', '.hg', '.project']
-"
-        "" 所生成的数据文件的名称
-        "let g:gutentags_ctags_tagfile = '.tags'
-"
-        "" 将自动生成的 tags 文件全部放入 ~/.cache/tags 目录中，避免污染工程目录
-        "let s:vim_tags = expand('~/.cache/tags')
-        "let g:gutentags_cache_dir = s:vim_tags
-        ""检测是否存在~/.cache/tags,不存在则创建
-        "if !isdirectory(s:vim_tags)
-           "silent! call mkdir(s:vim_tags, 'p')
-        "endif
-        "" 配置 ctags 的参数
-        "let g:gutentags_ctags_extra_args = ['--fields=+niazS', '--extra=+q']
-        "let g:gutentags_ctags_extra_args += ['--c++-kinds=+px']
-        "let g:gutentags_ctags_extra_args += ['--c-kinds=+px']
-"
 
     Plug 'dense-analysis/ale'
         let g:ale_linters_explicit = 1
@@ -274,57 +255,6 @@ call plug#begin('~/.vim/plugged')
         "关闭函数原型提示
         
     "安装插件
-    Plug 'godlygeek/tabular' "必要插件，安装在vim-markdown前面
-    Plug 'plasticboy/vim-markdown'
-        let g:vim_markdown_math = 1
-        "查看所有配置建议
-        "":help vim-markdwon
-        "[[ "跳转上一个标题
-        "]] "跳转下一个标题
-        "]c "跳转到当前标题
-        "]u "跳转到副标题
-        "zr "打开下一级折叠
-        "zR "打开所有折叠
-        "zm "折叠当前段落
-        "zM "折叠所有段落
-        ":Toc "显示目录
-
-    "代码块语法高亮
-    Plug 'joker1007/vim-markdown-quote-syntax'
-
-    "MarkDown预览插件
-    Plug 'iamcco/markdown-preview.vim'
-        let g:mkdp_path_to_chrome = "firefox"
-        " 设置 chrome 浏览器的路径（或是启动 chrome（或其他现代浏览器）的命令）
-        " 如果设置了该参数, g:mkdp_browserfunc 将被忽略
-
-        let g:mkdp_browserfunc = 'MKDP_browserfunc_default'
-        " vim 回调函数, 参数为要打开的 url
-
-        let g:mkdp_auto_start = 1
-        " 设置为 1 可以在打开 markdown 文件的时候自动打开浏览器预览，只在打开
-        " markdown 文件的时候打开一次
-
-        let g:mkdp_auto_open = 1
-        " 设置为 1 在编辑 markdown 的时候检查预览窗口是否已经打开，否则自动打开预
-        " 览窗口
-
-        let g:mkdp_auto_close = 1
-        " 在切换 buffer 的时候自动关闭预览窗口，设置为 0 则在切换 buffer 的时候不
-        " 自动关闭预览窗口
-
-        let g:mkdp_refresh_slow = 1
-        " 设置为 1 则只有在保存文件，或退出插入模式的时候更新预览，默认为 0，实时
-        " 更新预览
-
-        let g:mkdp_command_for_global = 0
-        " 设置为 1 则所有文件都可以使用 MarkdownPreview 进行预览，默认只有 markdown
-        " 文件可以使用改命令
-
-        let g:mkdp_open_to_the_world = 0
-        " 设置为 1, 在使用的网络中的其他计算机也能访问预览页面
-        " 默认只监听本地（127.0.0.1），其他计算机不能访问
-    Plug 'iamcco/mathjax-support-for-mkdp'
 
     Plug 'vim-airline/vim-airline'
         ""Vim 在与屏幕/键盘交互时使用的编码(取决于实际的终端的设定)        
@@ -478,4 +408,97 @@ call plug#begin('~/.vim/plugged')
         "   </p>
         "   这个插件对于HTML和XML编辑非常强大，这是一个利基 目前在Vim土地上似乎未满。 （与HTML / XML相对 inserting ，有许多可用的插件）。 添加，更改， 同时删除成对的标签很容易。
         "   该 .命令将工作 ds， cs以及 yss如果你安装 repeat.vim'
+
+    Plug 'iamcco/markdown-preview.nvim' ,{ 'do': 'cd app && yarn install'  }
+        "Need nodejs and yarn
+        " set to 1, nvim will open the preview window after entering the markdown buffer
+        " default: 0
+        let g:mkdp_auto_start = 0
+
+        " set to 1, the nvim will auto close current preview window when change
+        " from markdown buffer to another buffer
+        " default: 1
+        let g:mkdp_auto_close = 1
+
+        " set to 1, the vim will refresh markdown when save the buffer or
+        " leave from insert mode, default 0 is auto refresh markdown as you edit or
+        " move the cursor
+        " default: 0
+        let g:mkdp_refresh_slow = 0
+
+        " set to 1, the MarkdownPreview command can be use for all files,
+        " by default it can be use in markdown file
+        " default: 0
+        let g:mkdp_command_for_global = 0
+
+        " set to 1, preview server available to others in your network
+        " by default, the server listens on localhost (127.0.0.1)
+        " default: 0
+        let g:mkdp_open_to_the_world = 0
+
+        " use custom IP to open preview page
+        " useful when you work in remote vim and preview on local browser
+        " more detail see: https://github.com/iamcco/markdown-preview.nvim/pull/9
+        " default empty
+        let g:mkdp_open_ip = ''
+
+        " specify browser to open preview page
+        " default: ''
+        let g:mkdp_browser = ''
+
+        " set to 1, echo preview page url in command line when open preview page
+        " default is 0
+        let g:mkdp_echo_preview_url = 0
+
+        " a custom vim function name to open preview page
+        " this function will receive url as param
+        " default is empty
+        let g:mkdp_browserfunc = ''
+
+        " options for markdown render
+        " mkit: markdown-it options for render
+        " katex: katex options for math
+        " uml: markdown-it-plantuml options
+        " maid: mermaid options
+        " disable_sync_scroll: if disable sync scroll, default 0
+        " sync_scroll_type: 'middle', 'top' or 'relative', default value is 'middle'
+        "   middle: mean the cursor position alway show at the middle of the preview page
+        "   top: mean the vim top viewport alway show at the top of the preview page
+        "   relative: mean the cursor position alway show at the relative positon of the preview page
+        " hide_yaml_meta: if hide yaml metadata, default is 1
+        " sequence_diagrams: js-sequence-diagrams options
+        " content_editable: if enable content editable for preview page, default: v:false
+        " disable_filename: if disable filename header for preview page, default: 0
+        let g:mkdp_preview_options = {
+            \ 'mkit': {},
+            \ 'katex': {},
+            \ 'uml': {},
+            \ 'maid': {},
+            \ 'disable_sync_scroll': 0,
+            \ 'sync_scroll_type': 'middle',
+            \ 'hide_yaml_meta': 1,
+            \ 'sequence_diagrams': {},
+            \ 'flowchart_diagrams': {},
+            \ 'content_editable': v:false,
+            \ 'disable_filename': 0
+            \ }
+
+        " use a custom markdown style must be absolute path
+        " like '/Users/username/markdown.css' or expand('~/markdown.css')
+        let g:mkdp_markdown_css = ''
+
+        " use a custom highlight style must absolute path
+        " like '/Users/username/highlight.css' or expand('~/highlight.css')
+        let g:mkdp_highlight_css = ''
+
+        " use a custom port to start server or random for empty
+        let g:mkdp_port = ''
+
+        " preview page title
+        " ${name} will be replace with the file name
+        let g:mkdp_page_title = '「${name}」'
+
+        " recognized filetypes
+        " these filetypes will have MarkdownPreview... commands
+        let g:mkdp_filetypes = ['markdown']        
 call plug#end()
