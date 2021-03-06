@@ -379,6 +379,7 @@ call plug#begin('~/.vim/plugged')
         "   默认值：
         "   [{'.cpp' : '.h', '.h' : '.hpp', '.hpp' : '.cpp'}, {'.c': '.h', '.h': '.c'}]
 
+    Plug 'tpope/vim-repeat'
     Plug 'tpope/vim-surround'
         "   
         "   Surround.vim与“周围环境”有关：括号，方括号，引号， XML标签等。 该插件提供了可以轻松删除的映射， 成对更改并添加此类环境。
