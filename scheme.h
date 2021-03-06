@@ -14,6 +14,7 @@ struct Symbol {
     static constexpr char const value[sizeof...(c)+1] = {c...,'\0'};
     using type = Symbol;
 };
+//null类型
 struct null {
     using type = null;
 };
@@ -45,7 +46,7 @@ struct is_same_type<T,T> {
     static const bool value = true;
 };
 
-//序列
+//序队
 #define cons(A,B)  cons<A,B>
 template<typename T,typename U>
 struct cons {
@@ -61,15 +62,15 @@ template<typename T>
 using cdr = typename T::cdr_type;
 
 //list模板
-template<class... Arg>
+template<typename... Arg>
 struct list ;
-template<class T,class... Arg>
+template<typename T,typename... Arg>
 struct list<T,Arg...> {
     using car_type = T;
     using cdr_type = list<Arg...>;
     using type = cons(car_type,cdr_type);
 };
-template<class T>
+template<typename T>
 struct list<T,null> {
     using car_type = T;
     using cdr_type = null;
@@ -78,7 +79,6 @@ struct list<T,null> {
 
 template<typename... Arg>
 struct make_index_sequence_own {
-    /* data */
 };
 
 #endif
