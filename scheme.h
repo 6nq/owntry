@@ -53,16 +53,12 @@ struct cons {
     using cdr_type = U;
     using type = cons;
 };
-#define car(A) car<A>::car_type
+#define car(A) car<A>
 template<typename T>
-struct car {
-    using car_type = typename T::car_type;
-};
-#define cdr(A) cdr<A>::cdr_type
+using car = typename T::car_type;
+#define cdr(A) cdr<A>
 template<typename T>
-struct cdr {
-    using cdr_type = typename T::cdr_type;
-};
+using cdr = typename T::cdr_type;
 
 //list模板
 template<class... Arg>
@@ -79,4 +75,10 @@ struct list<T,null> {
     using cdr_type = null;
     using type = cons(car_type,cdr_type);
 };
+
+template<typename... Arg>
+struct make_index_sequence_own {
+    /* data */
+};
+
 #endif

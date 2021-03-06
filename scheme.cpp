@@ -1,15 +1,12 @@
 #include <iostream>
 #include "scheme.h"
 
+using namespace std;
 
 
 using x = cons(num(3),num(9));
 using y = list<num(4),num(1),num(7)>;
 
-using namespace std;
-/* constexpr auto z = If<car(x)::value == car(y)::value */
-/*                     ,num(4) */
-/*                     ,num(5)>::type::value; */
 constexpr auto z = If<is_same_type(car(x),car(y))
                     ,num(4)
                     ,num(5)>::type::value;
