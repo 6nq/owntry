@@ -26,9 +26,6 @@ int main(void)
     /* cout<< typeid(typeof(car(cons(num(3),num(7))))).name() <<endl; */
     cout<< typeid(car(y)).name() <<endl;
 
-    /* constexpr  int const(&arr)[50] = pck_int<50>::type::value; */
-    /* for (int i = 0; i < 50; ++i) { */
-    /*     cout<< arr[i] <<endl; */
-    /* } */
+    make_index_sequence_own<6> ;
     return 0;
 }

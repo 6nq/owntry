@@ -1,3 +1,4 @@
+#include <iostream>
 #ifndef SCHEME_H
 #define SCHEME_H
 
@@ -77,8 +78,16 @@ struct list<T,null> {
     using type = cons(car_type,cdr_type);
 };
 
-template<typename... Arg>
-struct make_index_sequence_own {
+template<size_t N,size_t... arg>
+struct make_index_sequence_helper {
+    using type = typename make_index_sequence_helper<N-1,N-1,arg...>::type;
 };
+template<size_t... arg>
+struct make_index_sequence_helper<0,arg...> {
+    using type = typename make_index_sequence_helper<arg...>::type;
+};
+
+template<size_t N>
+using make_index_sequence_own = typename make_index_sequence_helper<N>::type;
 
 #endif
