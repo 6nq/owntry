@@ -15,10 +15,12 @@ struct Symbol {
     static constexpr char const value[sizeof...(c)+1] = {c...,'\0'};
     using type = Symbol;
 };
-//null类型
-struct null {
-    using type = null;
+//nil类型
+struct nil {
+    using type = nil;
+    static constexpr char const  value[5] = "nil";
 };
+
 
 //分支判断
 //If(A)Then(do thing1)Else(do thing2)
@@ -72,19 +74,32 @@ struct list<T,Arg...> {
     using type = cons(car_type,cdr_type);
 };
 template<typename T>
-struct list<T,null> {
+struct list<T> {
     using car_type = T;
-    using cdr_type = null;
-    using type = cons(car_type,cdr_type);
+    using cdr_type = nil;
+    using type = cons(T,nil);
 };
+template<>
+struct list<> {
+    using car_type = nil;
+    using cdr_type = nil;
+    using type = nil;
+};
+template<typename T>
+constexpr bool is_nil= is_same_type(typename T::type,nil);
 
+template<size_t... arg>
+struct integer_sequence {
+    static constexpr size_t value[ sizeof...(arg) ] = {arg...}; 
+    using type = integer_sequence;
+};
 template<size_t N,size_t... arg>
 struct make_index_sequence_helper {
     using type = typename make_index_sequence_helper<N-1,N-1,arg...>::type;
 };
 template<size_t... arg>
 struct make_index_sequence_helper<0,arg...> {
-    using type = typename make_index_sequence_helper<arg...>::type;
+    using type = integer_sequence<arg...>;
 };
 
 template<size_t N>
