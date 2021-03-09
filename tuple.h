@@ -21,12 +21,12 @@ using make_index_sequence_own = typename make_index_sequence_helper<N>::type;
 
 //转发tuple参数包
 template<class F,class Tuple,size_t... I>
-constexpr decltype(auto) apply_impl(F&& f,Tuple&& t,integer_sequence<I...>){
-    return f(get<I>(forward<Tuple>(t))...);
+constexpr decltype(auto) apply_impl_own(F&& f,Tuple&& t,integer_sequence<I...>){
+    return f(get<I>(std::forward<Tuple>(t))...);
 }
 template<class F,class Tuple>
-constexpr decltype(auto) apply(F&& f,Tuple&& t){
-    return apply_impl(std::forward<F>(f),forward<Tuple>(t),make_index_sequence_own<std::tuple_size_v<std::remove_reference_t<Tuple>>>{});
+constexpr decltype(auto) apply_own(F&& f,Tuple&& t){
+    return apply_impl_own(std::forward<F>(f),std::forward<Tuple>(t),make_index_sequence_own<std::tuple_size_v<std::remove_reference_t<Tuple>>>{});
 }
 
 
