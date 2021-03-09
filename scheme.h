@@ -1,4 +1,5 @@
 #include <iostream>
+#include <tuple>
 #ifndef SCHEME_H
 #define SCHEME_H
 
@@ -88,21 +89,5 @@ struct list<> {
 template<typename T>
 constexpr bool is_nil= is_same_type(typename T::type,nil);
 
-template<size_t... arg>
-struct integer_sequence {
-    static constexpr size_t value[ sizeof...(arg) ] = {arg...}; 
-    using type = integer_sequence;
-};
-template<size_t N,size_t... arg>
-struct make_index_sequence_helper {
-    using type = typename make_index_sequence_helper<N-1,N-1,arg...>::type;
-};
-template<size_t... arg>
-struct make_index_sequence_helper<0,arg...> {
-    using type = integer_sequence<arg...>;
-};
-
-template<size_t N>
-using make_index_sequence_own = typename make_index_sequence_helper<N>::type;
 
 #endif
