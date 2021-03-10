@@ -30,3 +30,7 @@
 *.exe
 *.out
 *.app
+
+*.asm
+tags
+.tags
