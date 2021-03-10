@@ -122,6 +122,8 @@ call plug#begin('~/.vim/plugged')
         " C++20 Compiler
         "autocmd FileType cpp nnoremap <silent> <F9> :AsyncRun g++ "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT).o" -Ofast -std=c++20 -s -flto <cr>
         autocmd FileType cpp nnoremap <silent> <F9> :AsyncRun g++ "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT).o"  -std=c++20 -s  <cr>
+        autocmd FileType cpp nnoremap <silent> <F12> :AsyncRun g++ "$(VIM_FILEPATH)" -o "$(VIM_FILEDIR)/$(VIM_FILENOEXT).asm"  -std=c++20 -S  <cr>
+        "autocmd FileType cpp nnoremap <silent> <F2> :e "$(VIM_FILEDIR)/$(VIM_FILENOEXT).asm"  <cr>
         " Python Interpreter
         autocmd FileType python nnoremap <silent> <F9> :!python % <CR>
         "mzscheme
@@ -359,7 +361,7 @@ call plug#begin('~/.vim/plugged')
         "撤销飞行模式，插入而不是跳出括号对	{}，[]，()	if(a[3])|	ALT+b	if(a[3])|'
     Plug 'ton/vim-alternate'
        nmap <silent> <F1> :Alternate<CR>
-       let g:AlternateExtensionMappings =  [{'.cpp' : '.h', '.h' : '.hpp', '.hpp' : '.cpp'}, {'.c': '.h', '.h': '.c'}]
+       let g:AlternateExtensionMappings =  [{'.cpp' : '.h', '.h' : '.asm', '.asm' : '.hpp', '.hpp' : '.cpp'}, {'.c': '.h', '.h': '.c'}]
         "   Vim-alternate提供了一个命令来打开该文件的备用文件 加载到当前缓冲区中：
         "   :Alternate
         "   没有提供默认的键盘映射，但用户可以轻松定义。 为了 例如，要将F4映射到：Alternate，请将以下行添加到Vim中 配置：
