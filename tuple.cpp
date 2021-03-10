@@ -1,6 +1,6 @@
 #include <iostream>
 #include <concepts>
-#include "tuple.h"
+#include <tuple>
 
 using namespace std;
 
@@ -12,8 +12,8 @@ int main(void)
     auto y = [](int n){
         return n*n;
     };
-    tuple<int,int> a = {3,4};
-    auto z = apply_own(x,a);
+    tuple<int,int> a = {7,4};
+    auto z = apply(x,a);
     cout << y(z) << endl;
     return 0;
 }
