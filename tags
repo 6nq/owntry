@@ -5,20 +5,20 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 BASE_H	base.hpp	2;"	d
-BUS_H	bus.hpp	3;"	d
+BUS_H	bus.h	3;"	d
 Buses	bus.cpp	/^Buses::Buses(string const& _name,int const& _start,int const& _end):name(_name),start(_start),end(_end){}$/;"	f	class:Buses
-Buses	bus.hpp	/^class Buses$/;"	c
-STATION_H	station.hpp	3;"	d
+Buses	bus.h	/^class Buses$/;"	c
+STATION_H	station.h	3;"	d
 Station	station.cpp	/^Station::Station(int const& _no,string const& _name):changed(false),no(_no),name(_name){}$/;"	f	class:Station
-Station	station.hpp	/^class Station$/;"	c
-changed	station.hpp	/^    bool changed;$/;"	m	class:Station
-end	bus.hpp	/^    int end;$/;"	m	class:Buses
+Station	station.h	/^class Station {$/;"	c
+changed	station.h	/^    bool changed;$/;"	m	class:Station
+end	bus.h	/^    int end;$/;"	m	class:Buses
 main	bus_System.cpp	/^int main()$/;"	f
-name	bus.hpp	/^    string name;$/;"	m	class:Buses
-name	station.hpp	/^    string name;$/;"	m	class:Station
-no	station.hpp	/^    int no;$/;"	m	class:Station
+name	bus.h	/^    string name;$/;"	m	class:Buses
+name	station.h	/^    string name;$/;"	m	class:Station
+no	station.h	/^    int no;$/;"	m	class:Station
 print	station.cpp	/^void Station::print()const{$/;"	f	class:Station
-start	bus.hpp	/^    int start;$/;"	m	class:Buses
+start	bus.h	/^    int start;$/;"	m	class:Buses
 update	station.cpp	/^inline void Station::update(int const& _no){$/;"	f	class:Station
 update	station.cpp	/^inline void Station::update(int const& _no,string const& _name){$/;"	f	class:Station
 update	station.cpp	/^inline void Station::update(string const& _name){$/;"	f	class:Station

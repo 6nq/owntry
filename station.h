@@ -1,9 +1,8 @@
-#include "base.hpp"
+#include "base.h"
 #ifndef STATION_H
 #define STATION_H
 
-class Station
-{
+class Station {
 private:
     bool changed;
     int no;
