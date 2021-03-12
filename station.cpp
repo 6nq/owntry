@@ -1,14 +1,25 @@
-#include "station.h"
-#include <cassert>
-#include <chrono>
-using namespace std;
+#include "station.hpp"
 
-template<typename T,std::size_t N>
-constexpr std::size_t arraysize(T (&)[N])noexcept{
-    return N;
+Station::Station(int const& _no,string const& _name):changed(false),no(_no),name(_name){}
+
+inline void Station::update(int const& _no){
+    no = _no;
 }
 
-int main(void)
-{
-    return 0;
+inline void Station::update(string const& _name){
+    name = _name;
+}
+
+inline void Station::update(int const& _no,string const& _name){
+    no = _no;
+    name = _name;
+}
+
+inline void Station::update(string const& _name,int const& _no){
+    no = _no;
+    name = _name;
+}
+
+void Station::print()const{
+    cout<< no << " : " << name << endl;
 }

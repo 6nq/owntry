@@ -1,3 +1,0 @@
-/home/user/owntry/CMakeFiles/rebuild_cache.dir
-/home/user/owntry/CMakeFiles/edit_cache.dir
-/home/user/owntry/CMakeFiles/bus_System.dir

@@ -1,1 +1,0 @@
-/usr/local/bin/c++     CMakeFiles/bus_System.dir/bus_System.cpp.o  -o bus_System 

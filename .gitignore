@@ -31,4 +31,6 @@
 *.exe
 *.out
 *.app
+
+.asm
 bus_System
