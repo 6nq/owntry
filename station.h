@@ -1,21 +1,25 @@
 #include "base.h"
+#include "uncopyable.h"
 #ifndef STATION_H
 #define STATION_H
 
-class Station {
+class Station :public Uncopyable{
+public:
+    Station(string const& _name);
+    ~Station()=default;
+
+    inline void update(string const& _name);
+    inline void add_out_station(Station* out_node);
+    inline void add_in_station(Station* out_node);
+    inline void print()const;
+
 private:
-    bool changed;
     int no;
     string name;
+    list<Station*> out_station;
+    list<Station*> in_station;
 
-public:
-    Station(int const& _no,string const& _name);
-    inline void update(int const& _no);
-    inline void update(string const& _name);
-    inline void update(int const& _no,string const& _name);
-    inline void update(string const& _name,int const& _no);
-    inline void print()const;
-    ~Station()=default;
+    inline int const& count_station();
 };
 
 #endif /* STATION_H */
