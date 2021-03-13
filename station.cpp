@@ -10,8 +10,9 @@ void Station::print()const{
     cout<< no << " : " << name << endl;
 }
 
-inline void Station::add_out_station(Station* out_node){
-    out_station.push_back(out_node);
+inline void add_out_station(int const& distance,int const& index_out_station){
+    
+    out_station.push_back(make_pair(distance,));
 }
 
 inline void Station::add_in_station(Station* in_node){

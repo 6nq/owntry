@@ -9,15 +9,15 @@ public:
     ~Station()=default;
 
     inline void update(string const& _name);
-    inline void add_out_station(Station* out_node);
-    inline void add_in_station(Station* out_node);
+    inline void add_out_station(int const& distance,int const& index_out_station);
+    inline void add_in_station(int const&distance,int const& index_in_station);
     inline void print()const;
 
 private:
     int no;
     string name;
-    list<Station*> out_station;
-    list<Station*> in_station;
+    list<pair<int,Station*>> out_station;
+    list<pair<int,Station*>> in_station;
 
     inline int const& count_station();
 };
