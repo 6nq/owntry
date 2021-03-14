@@ -1,6 +1,11 @@
 #include "init.h"
-#include "/moudle/route.cpp"
-#include "/moudle/map.cpp"
+#include "moudle/route.cpp"
+#include "moudle/map.cpp"
+
+Init& Init::getInitInstance(){
+    static Init instance;
+    return instance;
+}
 
 Init::Init(){
     InitStation();
@@ -64,6 +69,6 @@ void Init::InitRoute(){
 
 int main(void)
 {
-    Init x;
+    Init& Init_Instance = Init::getInitInstance();
     return 0;
 }
