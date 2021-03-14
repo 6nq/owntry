@@ -17,14 +17,11 @@ public:
     inline string const& getName()const;
     inline list<Route>& get_outStation();
     inline list<Route>& get_inStation();
-    inline void print()const;
 
-    list<Route> out_station;
-    list<Route> in_station;
-
-private:
     int no;
     string name;
+    list<Route> out_station;
+    list<Route> in_station;
 };
 
 #endif /* STATION_H */

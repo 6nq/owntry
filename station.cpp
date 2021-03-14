@@ -8,11 +8,6 @@ update(string const& _name){
     name = std::move(_name);
 }
 
-void Station::
-print()const{
-    cout<< no << " : " << name << endl;
-}
-
 inline void Station::
 add_out_station(Route const& route){
     out_station.emplace_back(route);
@@ -44,8 +39,24 @@ get_inStation(){
     return out_station;
 }
 
+istream& 
+operator>>(istream& is,Station& sta){
+    is>> sta.no >> sta.name;
+    return is;
+}
+
+ostream& 
+operator<<(ostream& os,Station const& sta){
+    os<< sta.no << " " << sta.name << endl;
+    return os;
+}
 
 /* int main(void) */
 /* { */
+/*     Station sta; */
+/*     cin>> sta; */
+/*     cout<< sta; */
+/*     cin>> sta; */
+/*     cout<< sta; */
 /*     return 0; */
 /* } */

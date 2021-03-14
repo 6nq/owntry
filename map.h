@@ -12,13 +12,14 @@ public:
     inline Station& getStation(int const& station_no);
     inline Buses& getBuses(int const& bus_no);
     ~Map()=default;
+
+    unordered_map<int,Station> station_map;      
+    unordered_map<int,Buses> bus_map;
+
 private:
     Map()=default;
     Map(Map const&)=delete;
     Map& operator=(Map const&)=delete;
-
-    unordered_map<int,Station> station_map;      
-    unordered_map<int,Buses> bus_map;
 };
 
 #endif /* MAP_H */
