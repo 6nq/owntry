@@ -3,24 +3,24 @@
 #define TUPLE_H
 
 //创建n个索引
-template<size_t... arg>
+template<std::size_t... arg>
 struct integer_sequence {
-    /* static constexpr size_t value[ sizeof...(arg) ] = {arg...}; */ 
+    /* static constexpr std::size_t value[ sizeof...(arg) ] = {arg...}; */ 
     using type = integer_sequence;
 };
-template<size_t N,size_t... arg>
+template<std::size_t N,std::size_t... arg>
 struct make_index_sequence_helper {
     using type = typename make_index_sequence_helper<N-1,N-1,arg...>::type;
 };
-template<size_t... arg>
+template<std::size_t... arg>
 struct make_index_sequence_helper<0,arg...> {
     using type = integer_sequence<arg...>;
 };
-template<size_t N>
+template<std::size_t N>
 using make_index_sequence_own = typename make_index_sequence_helper<N>::type;
 
 //转发tuple参数包
-template<class F,class Tuple,size_t... I>
+template<class F,class Tuple,std::size_t... I>
 constexpr decltype(auto) apply_impl_own(F&& f,Tuple&& t,integer_sequence<I...>){
     return f(get<I>(std::forward<Tuple>(t))...);
 }
