@@ -1,6 +1,6 @@
 #include "init.h"
-#include "route.cpp"
-#include "map.cpp"
+#include "/moudle/route.cpp"
+#include "/moudle/map.cpp"
 
 Init::Init(){
     InitStation();
