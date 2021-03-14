@@ -1,24 +1,27 @@
 #include "base.h"
-#include "uncopyable.h"
 #ifndef STATION_H
 #define STATION_H
 
-class Station :public Uncopyable{
+class Station {
 public:
     Station(string const& _name);
     ~Station()=default;
 
     inline void update(string const& _name);
-    inline void add_out_station(int const& distance,int const& index_out_station);
-    inline void add_in_station(int const&distance,int const& index_in_station);
+    inline void add_out_station(Route *const route);
+    inline void add_in_station(Route *const route);
+    inline int const& getNo()const;
+    inline string const& getName()const;
+    inline list<Route*>& get_outStation();
+    inline list<Route*>& get_inStation();
     inline void print()const;
 
-private:
     int no;
     string name;
-    list<pair<int,Station*>> out_station;
-    list<pair<int,Station*>> in_station;
+    list<Route*> out_station;
+    list<Route*> in_station;
 
+private:
     inline int const& count_station();
 };
 

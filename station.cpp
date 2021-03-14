@@ -1,24 +1,49 @@
 #include "station.h"
 
-Station::Station(string const& _name):no(count_station()),name(_name){ }
+Station::Station(string const& _name):no(count_station()),name(_name),out_station(0){ }
 
-inline void Station::update(string const& _name){
+inline void Station::
+update(string const& _name){
     name = std::move(_name);
 }
 
-void Station::print()const{
+void Station::
+print()const{
     cout<< no << " : " << name << endl;
 }
 
-inline void add_out_station(int const& distance,int const& index_out_station){
-    
-    out_station.push_back(make_pair(distance,));
+inline void Station::
+add_out_station(Route *const route){
+    out_station.emplace_back(route);
 }
 
-inline void Station::add_in_station(Station* in_node){
-    in_station.push_back(in_node);
+inline void Station::
+add_in_station(Route *const route){
+    in_station.emplace_back(route);
 }
-inline int const& count_station(){
+
+inline int const& Station::
+count_station(){
     static int num = 0;
     return ++num;
+}
+
+inline int const& Station::
+getNo()const{
+    return no;
+}
+
+inline string const& Station::
+getName()const{
+    return name;
+}
+
+inline list<Route*>& Station::
+get_outStation(){
+    return out_station;
+}
+
+inline list<Route*>& Station::
+get_inStation(){
+    return out_station;
 }

@@ -8,27 +8,33 @@ BASE_H	base.h	2;"	d
 BUS_H	bus.h	3;"	d
 Buses	bus.cpp	/^Buses::Buses(string const& _name,int const& _start,int const& _end):name(_name),start(_start),end(_end){}$/;"	f	class:Buses
 Buses	bus.h	/^class Buses$/;"	c
+MAP_H	map.h	6;"	d
+Map	map.h	/^class Map$/;"	c
 ROUTE_H	route.h	3;"	d
 Route	route.h	/^class Route$/;"	c
 STATION_H	station.h	4;"	d
-Station	station.cpp	/^Station::Station(string const& _name):no(count_station()),name(_name){ }$/;"	f	class:Station
-Station	station.h	/^class Station :public Uncopyable{$/;"	c
-UNCOPYABLE_H	uncopyable.h	2;"	d
-Uncopyable	uncopyable.h	/^class Uncopyable$/;"	c
-add_in_station	station.cpp	/^inline void Station::add_in_station(Station* in_node){$/;"	f	class:Station
-add_out_station	station.cpp	/^inline void Station::add_out_station(Station* out_node){$/;"	f	class:Station
+Station	station.cpp	/^Station::Station(string const& _name):no(count_station()),name(_name),out_station(0){ }$/;"	f	class:Station
+Station	station.h	/^class Station {$/;"	c
+addStation	map.cpp	/^inline void Map::addStation(const Station& node){$/;"	f	class:Map
+add_in_station	station.cpp	/^inline void Station::add_in_station(int const& _distance,Station const*const pin_station){$/;"	f	class:Station
+add_out_station	station.cpp	/^inline void Station::add_out_station(int const& _distance,Station const*const pout_station){$/;"	f	class:Station
 base	base.h	/^    class base{};$/;"	c	namespace:nil
+bus_no	route.h	/^    int bus_no;$/;"	m	class:Route
 count_station	station.cpp	/^inline int const& count_station(){$/;"	f
 distance_	route.h	/^    int distance_;$/;"	m	class:Route
 end	bus.h	/^    int end;$/;"	m	class:Buses
-in_station	station.h	/^    list<Station*> in_station;$/;"	m	class:Station
+end_station	route.h	/^    int end_station;$/;"	m	class:Route
+getNo	station.cpp	/^inline int Station::getNo()const{$/;"	f	class:Station
+getStation	map.cpp	/^inline Station& Map::getStation(int const& no){$/;"	f	class:Map
+in_station	station.h	/^    list<pair<int,Station*>> in_station;$/;"	m	class:Station
 main	bus_System.cpp	/^int main()$/;"	f
 name	bus.h	/^    string name;$/;"	m	class:Buses
 name	station.h	/^    string name;$/;"	m	class:Station
 nil	base.h	/^namespace nil{$/;"	n
 no	station.h	/^    int no;$/;"	m	class:Station
-no_station	route.h	/^    int no_station;$/;"	m	class:Route
-out_station	station.h	/^    list<Station*> out_station;$/;"	m	class:Station
+out_station	station.h	/^    list<pair<int,Station*>> out_station;$/;"	m	class:Station
 print	station.cpp	/^void Station::print()const{$/;"	f	class:Station
 start	bus.h	/^    int start;$/;"	m	class:Buses
+start_station	route.h	/^    int start_station;$/;"	m	class:Route
+station_map	map.h	/^    unordered_map<int,Station> station_map;      $/;"	m	class:Map
 update	station.cpp	/^inline void Station::update(string const& _name){$/;"	f	class:Station
