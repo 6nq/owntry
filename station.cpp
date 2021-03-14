@@ -1,6 +1,7 @@
 #include "station.h"
+#include "route.h"
 
-Station::Station(string const& _name):no(count_station()),name(_name),out_station(0){ }
+Station::Station(int const& _no,string const& _name):no(_no),name(_name){ }
 
 inline void Station::
 update(string const& _name){
@@ -13,23 +14,18 @@ print()const{
 }
 
 inline void Station::
-add_out_station(Route *const route){
+add_out_station(Route const& route){
     out_station.emplace_back(route);
 }
 
 inline void Station::
-add_in_station(Route *const route){
+add_in_station(Route const& route){
     in_station.emplace_back(route);
 }
 
-inline int const& Station::
-count_station(){
-    static int num = 0;
-    return ++num;
-}
 
-inline int const& Station::
-getNo()const{
+inline int Station::
+getStationNo()const{
     return no;
 }
 
@@ -38,12 +34,18 @@ getName()const{
     return name;
 }
 
-inline list<Route*>& Station::
+inline list<Route>& Station::
 get_outStation(){
     return out_station;
 }
 
-inline list<Route*>& Station::
+inline list<Route>& Station::
 get_inStation(){
     return out_station;
 }
+
+
+/* int main(void) */
+/* { */
+/*     return 0; */
+/* } */

@@ -1,6 +1,6 @@
 #include "base.h"
-#ifndef BUS_H
-#define BUS_H
+#ifndef BUSES_H
+#define BUSES_H
 
 class Buses
 {
@@ -11,9 +11,10 @@ private:
     int end;
 
 public:
-    Buses(string const& _name,int const& _start,int const& _end);
+    Buses()=default;
+    Buses(string const& _name,int _bus_no,int const& _start,int const& _end);
     ~Buses()=default;
-    inline int const& getNo()const;
+    inline int  getBusesNo()const;
 };
 
-#endif /* BUS_H */
+#endif /* BUSES_H */

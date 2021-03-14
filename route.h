@@ -10,6 +10,7 @@ public:
     int distance_;
     Station* next_station;
 
+    Route()=default;
     Route(int const& bus_no,int const& distance_,Station*const next_distance);
     ~Route()=default;
 };
