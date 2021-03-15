@@ -11,7 +11,7 @@ void Page3();
 void Page4();
 void Page5();
 void addStation();
-Station& searchStation();
+Station searchStation();
 void search_By_busno();
 void search_By_stationno();
 void printRouteBybusno(int const&);

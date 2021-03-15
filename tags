@@ -27,6 +27,8 @@ PAGE_H	page/mainpage.h	3;"	d
 Page1	page/mainpage.cpp	/^void Page1(){$/;"	f
 Page2	page/mainpage.cpp	/^void Page2(){$/;"	f
 Page3	page/mainpage.cpp	/^void Page3(){$/;"	f
+Page4	page/mainpage.cpp	/^void Page4(){$/;"	f
+Page5	page/mainpage.cpp	/^void Page5(){$/;"	f
 ROUTE_CPP	moudle/route.cpp	4;"	d	file:
 ROUTE_H	moudle/route.h	4;"	d
 Route	moudle/route.cpp	/^Route::Route(int const& no_bus,int const& distance_l,Station*const nextStation)$/;"	f	class:Route
@@ -73,7 +75,7 @@ operator >>	moudle/buses.cpp	/^istream& operator>>(istream& is,Buses & bus){$/;"
 operator >>	moudle/station.cpp	/^operator>>(istream& is,Station& sta){$/;"	f
 out_station	moudle/station.h	/^    vector<Route*> out_station;$/;"	m	class:Station
 printRouteBybusno	page/mainpage.cpp	/^void printRouteBybusno(int const& no_bus){$/;"	f
-searchStation	page/mainpage.cpp	/^Station& searchStation(){$/;"	f
+searchStation	page/mainpage.cpp	/^Station searchStation(){$/;"	f
 search_By_busno	page/mainpage.cpp	/^void search_By_busno(){$/;"	f
 search_By_stationno	page/mainpage.cpp	/^void search_By_stationno(){$/;"	f
 start	moudle/buses.h	/^    int start;$/;"	m	class:Buses

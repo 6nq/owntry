@@ -159,10 +159,10 @@ void addStation(){
     while(cin>>sta_no){
         clearBuf();
         auto iter_station = station_map.find(sta_no);
-        if(iter_station != station_map.end()){
-            cout<< "已存在该公交线路编号,请重新输入" << endl;
-            continue;
+        if(iter_station == station_map.end()){
+            break;
         }
+        cout<< "已存在该公交线路编号,请重新输入" << endl;
     }
     cout<< "请输入站点名字" << endl;
     cin>>sta_name;
@@ -171,7 +171,7 @@ void addStation(){
     map_instance.addStation(sta);
 }
 
-Station& searchStation(){
+Station searchStation(){
     cout<< "请输入站点编号" <<endl;
     int no_station;
     cin>> no_station;
@@ -182,10 +182,10 @@ Station& searchStation(){
 
     auto iter_station = station_map.find(no_station);
     if(iter_station == station_map.cend()){
-        cout<< "不存在该站点编号" << endl;
-        return;
+        return Station(-1,"不存在该站点编号");
     }
     auto& sta = (*iter_station).second;
+    return sta;
 }
 
 void Page3(){
@@ -194,7 +194,7 @@ void Page3(){
 
     switch(getKeystroke()){
         case '0':
-            return;
+            return MainPage();
         case '1':
             addStation();
             return Page3();
@@ -204,4 +204,13 @@ void Page3(){
             return Page3();
     }
 }
+
+void Page4(){
+
+}
+
+void Page5(){
+
+}
+
 #endif

@@ -1,4 +1,4 @@
 install:
-	g++ -o main.o  -stdc=
+	g++ -o main.o  -std=c++20 main.cpp
 clean:
 	rm *.o
