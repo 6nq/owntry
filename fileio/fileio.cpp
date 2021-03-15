@@ -31,7 +31,7 @@ void FileIo::FileIoStation(){
         instance.addStation(sta);
     }
     ifstrm.close();
-    cout<< "读取成功" << Config::fnstation << endl;
+    cout<< "加载成功" << Config::fnstation << endl;
 }
 
 void FileIo::FileIoBuses(){
@@ -48,7 +48,7 @@ void FileIo::FileIoBuses(){
         instance.addBus(bus);
     }
     ifstrm.close();
-    cout<< "读取成功" << Config::fnbuses << endl;
+    cout<< "加载成功" << Config::fnbuses << endl;
 }
 
 
@@ -76,7 +76,7 @@ void FileIo::FileIoRoute(){
         tail->add_in_station(in_route);
     }
     ifstrm.close();
-    cout<< "读取成功" << Config::fnroute << endl;
+    cout<< "加载成功" << Config::fnroute << endl;
 }
 
 
@@ -132,11 +132,17 @@ void FileIo::writeRoute(){
         return ;
     }
 
-    auto &map_instance = Map::getMapInstance();
-    auto &station_map = map_instance.station_map;
-    auto &buses_map = map_instance.bus_map;
-    for (auto i : station_map) {
+    auto &station_map = Map::getMapInstance().station_map;
+    for (auto& i : station_map) {
         auto& route_list = i.second.out_station;
+        int start_station = i.no;
+
+        for (auto& j : route_list) {
+            ostrm<< j.bus_no << " "
+                 << start_station << " "
+                 << j.next_station->no << " "
+                 << j.distance_ << " " <<endl;
+        }
     }
 
     cout<< "写入成功" << Config::fnroute << endl;
