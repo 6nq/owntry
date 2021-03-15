@@ -9,8 +9,6 @@ public:
     static Map& getMapInstance();
     inline void addStation(Station const& );
     inline void addBus(Buses const&);
-    inline Station& getStation(int const& station_no);
-    inline Buses& getBuses(int const& bus_no);
     ~Map()=default;
 
     unordered_map<int,Station> station_map;      

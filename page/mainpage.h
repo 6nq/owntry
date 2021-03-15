@@ -6,9 +6,14 @@ void clearBuf();
 char const getKeystroke();
 void MainPage();
 void Page1();
+void Page2();
+void Page3();
+void Page4();
+void Page5();
+void addStation();
+Station& searchStation();
 void search_By_busno();
 void search_By_stationno();
-void Page2();
 void printRouteBybusno(int const&);
 
 #endif /* PAGE_H */

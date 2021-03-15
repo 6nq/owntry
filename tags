@@ -23,9 +23,10 @@ MAP_H	moudle/map.h	4;"	d
 MainPage	page/mainpage.cpp	/^void MainPage(){$/;"	f
 Map	moudle/map.h	/^class Map$/;"	c
 PAGE_CPP	page/mainpage.cpp	5;"	d	file:
-PAGE_H	page/mainpage.h	2;"	d
+PAGE_H	page/mainpage.h	3;"	d
 Page1	page/mainpage.cpp	/^void Page1(){$/;"	f
 Page2	page/mainpage.cpp	/^void Page2(){$/;"	f
+Page3	page/mainpage.cpp	/^void Page3(){$/;"	f
 ROUTE_CPP	moudle/route.cpp	4;"	d	file:
 ROUTE_H	moudle/route.h	4;"	d
 Route	moudle/route.cpp	/^Route::Route(int const& no_bus,int const& distance_l,Station*const nextStation)$/;"	f	class:Route
@@ -36,6 +37,7 @@ Station	moudle/station.cpp	/^Station::Station(int const& _no,string const& _name
 Station	moudle/station.h	/^class Station $/;"	c
 addBus	moudle/map.cpp	/^inline void Map::addBus(Buses const& node){$/;"	f	class:Map
 addStation	moudle/map.cpp	/^inline void Map::addStation(Station const& node){$/;"	f	class:Map
+addStation	page/mainpage.cpp	/^void addStation(){$/;"	f
 add_in_station	moudle/station.cpp	/^add_in_station(Route * route){$/;"	f	class:Station
 add_out_station	moudle/station.cpp	/^add_out_station(Route *route){$/;"	f	class:Station
 base	moudle/base.h	/^    class base{};$/;"	c	namespace:noNeed
@@ -48,11 +50,9 @@ fileio_instance	page/main.cpp	/^FileIo& fileio_instance = FileIo::getFileIoInsta
 fnbuses	fileio/config.h	/^    constexpr static char fnbuses[] = "..\/data\/buses.txt";$/;"	m	class:Config
 fnroute	fileio/config.h	/^    constexpr static char fnroute[] = "..\/data\/route.txt";$/;"	m	class:Config
 fnstation	fileio/config.h	/^    constexpr static char fnstation[] = "..\/data\/station.txt";$/;"	m	class:Config
-getBuses	moudle/map.cpp	/^inline Buses& Map::getBuses(int const& bus_no){$/;"	f	class:Map
 getFileIoInstance	fileio/fileio.cpp	/^FileIo& FileIo::getFileIoInstance(){$/;"	f	class:FileIo
 getKeystroke	page/mainpage.cpp	/^char const getKeystroke(){$/;"	f
 getMapInstance	moudle/map.cpp	/^Map& Map::getMapInstance(){$/;"	f	class:Map
-getStation	moudle/map.cpp	/^inline Station& Map::getStation(int const& station_no){$/;"	f	class:Map
 in_station	moudle/station.h	/^    vector<Route*> in_station;$/;"	m	class:Station
 main	page/main.cpp	/^int main()$/;"	f
 main	test/buses.test.cpp	/^int main(void)$/;"	f
@@ -72,7 +72,8 @@ operator <<	moudle/station.cpp	/^operator<<(ostream& os,Station const& sta){$/;"
 operator >>	moudle/buses.cpp	/^istream& operator>>(istream& is,Buses & bus){$/;"	f
 operator >>	moudle/station.cpp	/^operator>>(istream& is,Station& sta){$/;"	f
 out_station	moudle/station.h	/^    vector<Route*> out_station;$/;"	m	class:Station
-printRouteBybusno	page/mainpage.cpp	/^void printRouteBybusno(int no_bus){$/;"	f
+printRouteBybusno	page/mainpage.cpp	/^void printRouteBybusno(int const& no_bus){$/;"	f
+searchStation	page/mainpage.cpp	/^Station& searchStation(){$/;"	f
 search_By_busno	page/mainpage.cpp	/^void search_By_busno(){$/;"	f
 search_By_stationno	page/mainpage.cpp	/^void search_By_stationno(){$/;"	f
 start	moudle/buses.h	/^    int start;$/;"	m	class:Buses
