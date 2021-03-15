@@ -8,7 +8,6 @@ public:
     Buses()=default;
     Buses(int _bus_no,string const& _name,int const& _start,int const& _end);
     ~Buses()=default;
-    inline int  getBusesNo()const;
 
     int no;
     string name;

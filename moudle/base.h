@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <list>
+#include <vector>
 #include <unordered_map>
 
 using namespace std;

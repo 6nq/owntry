@@ -11,11 +11,11 @@ Map& Map::getMapInstance(){
 }
 
 inline void Map::addStation(Station const& node){
-    station_map.emplace(node.getStationNo(),node);
+    station_map.emplace(node.no,node);
 }
 
 inline void Map::addBus(Buses const& node){
-    bus_map.emplace(node.getBusesNo(),node);
+    bus_map.emplace(node.no,node);
 }
 inline Station& Map::getStation(int const& station_no){
     return station_map[station_no];

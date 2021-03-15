@@ -5,6 +5,14 @@
 #define STATION_CPP
 
 Station::Station(int const& _no,string const& _name):no(_no),name(_name){ }
+Station::~Station(){
+    for (auto i = out_station.begin(); i != out_station.end(); ++i) {
+        delete *i;
+    }
+    for (auto i = in_station.begin(); i != in_station.end(); ++i) {
+        delete *i;
+    }
+}
 
 inline void Station::
 update(string const& _name){
@@ -12,34 +20,15 @@ update(string const& _name){
 }
 
 inline void Station::
-add_out_station(Route const& route){
-    out_station.emplace_back(route);
+add_out_station(Route *route){
+    out_station.push_back(route);
+    cout<< out_station.size()<<endl;
 }
 
 inline void Station::
-add_in_station(Route const& route){
-    in_station.emplace_back(route);
-}
-
-
-inline int Station::
-getStationNo()const{
-    return no;
-}
-
-inline string const& Station::
-getName()const{
-    return name;
-}
-
-inline list<Route>& Station::
-get_outStation(){
-    return out_station;
-}
-
-inline list<Route>& Station::
-get_inStation(){
-    return out_station;
+add_in_station(Route * route){
+    in_station.push_back(route);
+    cout<< in_station.size()<<endl;
 }
 
 istream& 

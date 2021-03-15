@@ -10,6 +10,7 @@ class FileIo
 public:
     static FileIo& getFileIoInstance();
 
+    void writeback();
 private:
     FileIo();
     ~FileIo();
@@ -20,7 +21,6 @@ private:
     void FileIoBuses();
     void FileIoRoute();
 
-    void writeback();
     void writeStation();
     void writeBuses();
     void writeRoute();
