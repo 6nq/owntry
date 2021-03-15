@@ -1,4 +1,5 @@
 #include "moudle/base.h"
+#include "config.h"
 
 
 #ifndef INIT_H
@@ -18,9 +19,6 @@ private:
     void InitBuses();
     void InitRoute();
 
-    constexpr static char fnstation[] = "data/station.txt";
-    constexpr static char fnbuses[] = "data/buses.txt";
-    constexpr static char fnroute[] = "data/route.txt";
 };
 
 #endif /* INIT_H */

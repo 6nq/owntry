@@ -1,5 +1,8 @@
 #include "buses.h"
 
+#ifndef BUSES_CPP
+#define BUSES_CPP
+
 Buses::Buses(int _bus_no,string const& _name,int const& _start,int const& _end)
                 :no(_bus_no),name(_name),start(_start),end(_end){}
 
@@ -24,8 +27,4 @@ ostream& operator<<(ostream& os,Buses const& bus){
     return os;
 }
 
-
-/* int main(void) */
-/* { */
-/*     return 0; */
-/* } */
+#endif

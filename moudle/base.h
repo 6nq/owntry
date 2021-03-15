@@ -5,7 +5,6 @@
 #include <fstream>
 #include <list>
 #include <unordered_map>
-#include <fcntl.h>
 
 using namespace std;
 

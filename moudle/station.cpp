@@ -1,6 +1,9 @@
 #include "station.h"
 #include "route.h"
 
+#ifndef STATION_CPP
+#define STATION_CPP
+
 Station::Station(int const& _no,string const& _name):no(_no),name(_name){ }
 
 inline void Station::
@@ -51,12 +54,4 @@ operator<<(ostream& os,Station const& sta){
     return os;
 }
 
-/* int main(void) */
-/* { */
-/*     Station sta; */
-/*     cin>> sta; */
-/*     cout<< sta; */
-/*     cin>> sta; */
-/*     cout<< sta; */
-/*     return 0; */
-/* } */
+#endif

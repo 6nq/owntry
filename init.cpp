@@ -2,6 +2,9 @@
 #include "moudle/route.cpp"
 #include "moudle/map.cpp"
 
+#ifndef INIT_CPP
+#define INIT_CPP
+
 Init& Init::getInitInstance(){
     static Init instance;
     return instance;
@@ -13,10 +16,12 @@ Init::Init(){
     InitRoute();
 }
 
+
 void Init::InitStation(){
     ifstream ifstrm;
-    ifstrm.open(fnstation);
+    ifstrm.open(Config::fnstation);
     if(!ifstrm.is_open()){
+    cout<< "打开失败" << Config::fnstation << endl;
         return ;
     }
 
@@ -25,13 +30,15 @@ void Init::InitStation(){
     while (ifstrm >> sta) {
         instance.addStation(sta);
     }
-    cout<< "读取结束" << endl;
+    ifstrm.close();
+    cout<< "读取成功" << Config::fnstation << endl;
 }
 
 void Init::InitBuses(){
     ifstream ifstrm;
-    ifstrm.open(fnbuses);
+    ifstrm.open(Config::fnbuses);
     if(!ifstrm.is_open()){
+    cout<< "打开失败" << Config::fnbuses << endl;
         return ;
     }
 
@@ -40,13 +47,16 @@ void Init::InitBuses(){
     while (ifstrm >> bus) {
         instance.addBus(bus);
     }
+    ifstrm.close();
+    cout<< "读取成功" << Config::fnbuses << endl;
 }
 
 
 void Init::InitRoute(){
     ifstream ifstrm;
-    ifstrm.open(fnroute);
+    ifstrm.open(Config::fnroute);
     if(!ifstrm.is_open()){
+        cout<< "打开失败" << Config::fnroute << endl;
         return ;
     }
 
@@ -65,10 +75,8 @@ void Init::InitRoute(){
         font->add_out_station(out_route);
         tail->add_in_station(in_route);
     }
+    ifstrm.close();
+    cout<< "读取成功" << Config::fnroute << endl;
 }
 
-int main(void)
-{
-    Init& Init_Instance = Init::getInitInstance();
-    return 0;
-}
+#endif

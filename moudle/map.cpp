@@ -2,6 +2,9 @@
 #include "buses.cpp"
 #include "map.h"
 
+#ifndef MAP_CPP
+#define MAP_CPP
+
 Map& Map::getMapInstance(){
     static Map instance;
     return instance;
@@ -22,7 +25,4 @@ inline Buses& Map::getBuses(int const& bus_no){
     return bus_map[bus_no];
 }
 
-/* int main(void) */
-/* { */
-/*     return 0; */
-/* } */
+#endif
