@@ -86,23 +86,6 @@ void FileIo::FileIoRoute(){
         tail->add_in_station(in_route);
     }
     ifstrm.close();
-
-    for (auto& i : station_map) {
-        cout<< "hi1"<<endl;
-        vector<Route*>& route_list =  i.second.out_station;
-        int start_station_no = i.first;
-
-        cout<< route_list.size()<<endl;
-
-        for(auto& j : route_list){
-            cout<< j->bus_no           << " "
-                  << start_station_no    << " "
-                  << j->next_station->no << " "
-                  << j->distance_        <<endl;
-
-        }
-    }
-
     cout<< "加载成功" << Config::fnroute << endl;
 }
 

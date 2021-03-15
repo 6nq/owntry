@@ -22,13 +22,11 @@ update(string const& _name){
 inline void Station::
 add_out_station(Route *route){
     out_station.push_back(route);
-    cout<< out_station.size()<<endl;
 }
 
 inline void Station::
 add_in_station(Route * route){
     in_station.push_back(route);
-    cout<< in_station.size()<<endl;
 }
 
 istream& 

@@ -1,4 +1,4 @@
-#include "fileio/fileio.cpp"
+#include "../fileio/fileio.cpp"
 #include "mainpage.h"
 
 #ifndef PAGE_CPP
@@ -72,40 +72,9 @@ void Page1(){
 
 void search_By_busno(){
     cout<< "请输入线路编号" <<endl;
-
     int no_bus;
-    auto& map_instance = Map::getMapInstance();
-    auto& bus_map = map_instance.bus_map;
-    auto& station_map = map_instance.station_map;
     cin>>no_bus;
-
-    /* auto& bus = bus_map[no_bus]; */
-    auto iter_bus = bus_map.find(no_bus);
-    if(iter_bus == bus_map.end()){
-        cout<< "不存在该公交线路编号" << endl;
-        cout<< (*iter_bus).second <<endl;
-        return;
-    }
-    auto& bus = (*iter_bus).second;
-    auto& start_station = station_map[bus.start];
-    auto& end_station = station_map[bus.end];
-
-    cout<< bus.name
-        << " 线路编号: " << no_bus << endl;
-
-    cout<< "路线为:" << start_station;
-
-    Station* ptr_sta = &start_station;
-    do{
-        for (auto i = ptr_sta->out_station.begin(); i != ptr_sta->out_station.cend(); ++i) {
-            if((*i)->bus_no == no_bus){
-                ptr_sta = (*i)->next_station;
-                cout<< " -> " << *ptr_sta ;
-                break;
-            }
-        }
-    }while(ptr_sta->no != bus.end);
-    cout<<endl;
+    printRouteBybusno(no_bus);
 }
 
 void search_By_stationno(){
@@ -122,11 +91,58 @@ void search_By_stationno(){
         cout<< "不存在该站点编号" << endl;
         return;
     }
+    auto& sta = (*iter_station).second;
 
+    set<int> arr_line;
+    for (auto i : (sta.out_station)) {
+        arr_line.insert((*i).bus_no);
+    }
+    for (auto i : (sta.in_station)) {
+        arr_line.insert((*i).bus_no);
+    }
+
+    for (auto& i : arr_line) {
+        printRouteBybusno(i);
+    }
 }
 
 void Page2(){
 
+}
+
+void printRouteBybusno(int const& no_bus){
+
+    auto& map_instance = Map::getMapInstance();
+    auto& bus_map = map_instance.bus_map;
+    auto& station_map = map_instance.station_map;
+    auto iter_bus = bus_map.find(no_bus);
+    if(iter_bus == bus_map.end()){
+        cout<< "不存在该公交线路编号" << endl;
+        cout<< (*iter_bus).second <<endl;
+        return;
+    }
+    auto& bus = (*iter_bus).second;
+
+    auto& start_station = station_map[bus.start];
+    auto& end_station = station_map[bus.end];
+
+    cout<< bus.name << endl
+        << " 线路编号: " << no_bus << endl;
+
+    cout<< "路线为:" << endl
+        << "I->" << start_station;
+
+    Station* ptr_sta = &start_station;
+    do{
+        for (auto i = ptr_sta->out_station.begin(); i != ptr_sta->out_station.cend(); ++i) {
+            if((*i)->bus_no == no_bus){
+                ptr_sta = (*i)->next_station;
+                cout<< " -> " << *ptr_sta ;
+                break;
+            }
+        }
+    }while(ptr_sta->no != bus.end);
+    cout<<endl;
 }
 
 #endif

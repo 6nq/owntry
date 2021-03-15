@@ -1,3 +1,4 @@
+#include "../moudle/base.h"
 #ifndef PAGE_H
 #define PAGE_H
 
@@ -8,5 +9,6 @@ void Page1();
 void search_By_busno();
 void search_By_stationno();
 void Page2();
+void printRouteBybusno(int const&);
 
 #endif /* PAGE_H */
