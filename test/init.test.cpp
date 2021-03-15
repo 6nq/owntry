@@ -1,8 +1,8 @@
-#include "../init.cpp"
+#include "../fileio.cpp"
 
 
 int main(void)
 {
-    Init& Init_Instance = Init::getInitInstance();
+    FileIo& FileIo_Instance = FileIo::getFileIoInstance();
     return 0;
 }

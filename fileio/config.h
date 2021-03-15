@@ -10,8 +10,7 @@ private:
     constexpr static char fnbuses[] = "../data/buses.txt";
     constexpr static char fnroute[] = "../data/route.txt";
 
-    friend class Init;
-    friend class Store;
+    friend class FileIo;
 
     Config()=default;
      ~Config()=default;
