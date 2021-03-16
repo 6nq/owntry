@@ -4,7 +4,11 @@
 #define ROUTE_CPP
 
 Route::Route(int const& no_bus,int const& distance_l,Station*const nextStation)
-    :bus_no(no_bus),distance_(distance_l),next_station(nextStation){
+    :bus_no(no_bus),distance_(distance_l),next_station(nextStation),next_route(nullptr){
+    }
+
+Route::Route(int const& no_bus,int const& distance_l,Station*const nextStation,Route* nextRoute)
+    :bus_no(no_bus),distance_(distance_l),next_station(nextStation),next_route(nextRoute){
     }
 
 ostream& operator<<(ostream& os,Route const& route){

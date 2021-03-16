@@ -75,15 +75,15 @@ void FileIo::FileIoRoute(){
     
     int start,end,distance_,bus_no;
     while (ifstrm >> bus_no >> start >> end >> distance_) {
-        Station*const font = &(station_map[start]);
-        Station*const tail = &(station_map[end]);
+        Station & font = station_map[start];
+        Station & tail = station_map[end];
 
 
-        Route* out_route = new Route(bus_no,distance_,tail);
-        Route* in_route = new Route(bus_no,distance_,font);
+        Route* out_route = new Route(bus_no,distance_,&tail);
+        Route* in_route = new Route(bus_no,distance_,&font);
 
-        font->add_out_station(out_route);
-        tail->add_in_station(in_route);
+        font.add_out_station(out_route);
+        tail.add_in_station(in_route);
     }
     ifstrm.close();
     cout<< "加载成功" << Config::fnroute << endl;
@@ -135,14 +135,10 @@ void FileIo::writeRoute(){
 
     auto &station_map = Map::getMapInstance().station_map;
     for (auto& i : station_map) {
-        cout<< "hi1"<<endl;
         vector<Route*>& route_list =  i.second.out_station;
         int start_station_no = i.first;
 
-        cout<< route_list.size()<<endl;
-
         for(auto& j : route_list){
-            cout<< "fs" <<endl;
             ofstrm<< j->bus_no           << " "
                   << start_station_no    << " "
                   << j->next_station->no << " "
