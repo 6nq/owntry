@@ -1,5 +1,6 @@
 #include "../fileio/fileio.cpp"
 #include "mainpage.h"
+#include "template.cpp"
 
 #ifndef PAGE_CPP
 #define PAGE_CPP
@@ -12,7 +13,7 @@ void clearBuf(){
     while((ch = getchar()) != EOF && ch != '\n')
         ;
 }
-char const getKeystroke(){
+char const getKeyvalue(){
     char ch;
     while(cin>>ch){
         clearBuf();
@@ -38,7 +39,7 @@ void MainPage(){
     cout<< "6: 查找站点" <<endl;
 
 
-    switch(getKeystroke()){
+    switch(getKeyvalue()){
         case '0':
             system("clear");
             return;
@@ -79,7 +80,7 @@ void Page1(){
     cout<< "1: 通过公交线路编号查找" <<endl;
     cout<< "2: 通过站点编号查找所有经过的路线并输出" <<endl;
 
-    switch(getKeystroke()){
+    switch(getKeyvalue()){
         case '0':
             system("clear");
             return MainPage();
@@ -155,39 +156,25 @@ void printRouteBybusno(int const& no_bus){
         << " 线路编号: " << no_bus << endl;
 
     cout<< "路线为:" << endl
-        << "I->" << start_station;
+        << "begin----->" << start_station;
 
     Station* ptr_sta = &start_station;
-    do{
-        for (auto i = ptr_sta->out_station.begin(); i != ptr_sta->out_station.cend(); ++i) {
-            if((*i)->bus_no == no_bus){
-                ptr_sta = (*i)->next_station;
-                cout<< " ---" << (*i)->distance_ << "---> " << *ptr_sta ;
-                break;
-            }
+    
+    Route* ptr_route;
+    for (auto i = ptr_sta->out_station.begin(); i != ptr_sta->out_station.cend(); ++i) {
+        if((*i)->bus_no == no_bus){
+            ptr_route = *i;
+            break;
         }
-    }while(ptr_sta->no != bus.end);
+    }
+
+    travelRoute(ptr_route,[ptr_route](){
+            cout<< "---" << ptr_route->distance_ << "--> " << *(ptr_route->next_station); 
+    });
+
     cout<<endl;
 }
 
-template<typename T>
-void travelRoute(Route* ptr_route,T&& lambda){
-    if(ptr_route->next_route != nullptr){
-        lambda();
-        travelRoute(ptr_route->next_route,std::forward<T>(lambda));
-        return ;
-    }
-    
-    for (auto i = ptr_route->next_station->out_station.begin(); i != ptr_route->next_station->out_station.cend(); ++i) {
-        if((*i)->bus_no == ptr_route->bus_no){
-            ptr_route->next_route = *i;
-            lambda();
-            travelRoute(ptr_route->next_route,std::forward<T>(lambda));
-            return;
-        }
-    }
-
-}
 
 
 void addStation(){
@@ -233,7 +220,7 @@ void Page3(){
     cout<< "1: 增加站点" <<endl;
     cout<< "2: 增加公交路线 "<<endl;
 
-    switch(getKeystroke()){
+    switch(getKeyvalue()){
         case '0':
             return MainPage();
         case '1':

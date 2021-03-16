@@ -3,7 +3,7 @@
 #define PAGE_H
 
 void clearBuf();
-char const getKeystroke();
+char const getKeyvalue();
 void MainPage();
 void Page1();
 void Page2();
