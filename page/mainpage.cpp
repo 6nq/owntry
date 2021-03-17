@@ -1,9 +1,11 @@
-#include "../fileio/fileio.cpp"
 #include "mainpage.h"
 #include "template.cpp"
+#include "../fileio/fileio.cpp"
 
 #ifndef PAGE_CPP
 #define PAGE_CPP
+FileIo& fileio_instance = FileIo::getFileIoInstance();
+
 auto& map_instance = Map::getMapInstance();
 auto& bus_map = map_instance.bus_map;
 auto& station_map = map_instance.station_map;
@@ -13,7 +15,7 @@ void clearBuf(){
     while((ch = getchar()) != EOF && ch != '\n')
         ;
 }
-char const getKeyvalue(){
+char getKeyvalue(){
     char ch;
     while(cin>>ch){
         clearBuf();
@@ -137,6 +139,27 @@ void Page2(){
         cout<< "不存在该站点编号,请重新输入" <<endl;
     }
 
+    set<int> forward_travel;
+    for (auto i = station_map[start].out_station.begin(); i != station_map[start].out_station.end(); ++i) {
+        vector<int> bus_route;
+        bus_route.push_back((*i)->bus_no);
+        travelRoute(*i,[&end,&bus_route](Route*const route){
+
+                if(route->next_station->no == end){
+                    return ;
+                }else{
+                    bus_route.push_back(route->next_station->no);
+                }
+
+                if(route->next_route == nullptr){
+                    return;
+                }
+
+            });
+        
+    }
+
+
     
 }
 
@@ -148,31 +171,30 @@ void printRouteBybusno(int const& no_bus){
         return;
     }
     auto& bus = (*iter_bus).second;
-
     auto& start_station = station_map[bus.start];
-    auto& end_station = station_map[bus.end];
 
-    cout<< bus.name << endl
-        << " 线路编号: " << no_bus << endl;
-
-    cout<< "路线为:" << endl
-        << "begin----->" << start_station;
+    cout<< "线路名字:" << bus.name << endl
+        << "线路编号: " << no_bus << endl
+        << "路线为:" << endl
+        << "begin=>" << start_station;
 
     Station* ptr_sta = &start_station;
     
-    Route* ptr_route;
-    for (auto i = ptr_sta->out_station.begin(); i != ptr_sta->out_station.cend(); ++i) {
-        if((*i)->bus_no == no_bus){
-            ptr_route = *i;
-            break;
+    if(bus.begin == nullptr){
+        for (auto i = ptr_sta->out_station.begin(); i != ptr_sta->out_station.cend(); ++i) {
+            if((*i)->bus_no == no_bus){
+                bus.begin = *i;
+                break;
+            }
         }
     }
 
-    travelRoute(ptr_route,[ptr_route](){
-            cout<< "---" << ptr_route->distance_ << "--> " << *(ptr_route->next_station); 
+    Route* ptr_route = bus.begin;
+    travelRoute(ptr_route,[](Route*const proute){
+            cout<< "--[" << proute->distance_ << "m]-> " << *(proute->next_station); 
     });
 
-    cout<<endl;
+    cout<<endl<<endl;
 }
 
 
@@ -318,7 +340,7 @@ void addBus(){
         end_station.add_in_station(in_route);
 
     }
-    Buses bus(no_bus,bus_name,staion_line[0],staion_line[staion_line.size()-1]);
+    Buses bus(no_bus , bus_name , staion_line[0] , staion_line[staion_line.size()-1]  );
     map_instance.addBus(bus);
 }
 

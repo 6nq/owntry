@@ -14,6 +14,7 @@ istream& operator>>(istream& is,Buses & bus){
       >> bus.name
       >> bus.start
       >> bus.end;
+    bus.begin = nullptr;
     return is;
 }
 
@@ -21,7 +22,7 @@ ostream& operator<<(ostream& os,Buses const& bus){
     os<< bus.no << " "
       << bus.name << " "
       << bus.start << " "
-      << bus.end << endl;
+      << bus.end;
     return os;
 }
 

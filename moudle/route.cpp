@@ -14,7 +14,7 @@ Route::Route(int const& no_bus,int const& distance_l,Station*const nextStation,R
 ostream& operator<<(ostream& os,Route const& route){
     os  << route.bus_no << " "
         << route.distance_ << " "
-        << route.next_station<< endl;
+        << route.next_station;
     return os;
 }
 

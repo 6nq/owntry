@@ -2,8 +2,9 @@
 #ifndef PAGE_H
 #define PAGE_H
 
+
 void clearBuf();
-char const getKeyvalue();
+char getKeyvalue();
 void MainPage();
 void Page1();
 void Page2();

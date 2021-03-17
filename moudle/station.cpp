@@ -37,7 +37,7 @@ operator>>(istream& is,Station& sta){
 
 ostream& 
 operator<<(ostream& os,Station const& sta){
-    os<< sta.no << " " << sta.name << endl;
+    os<< sta.no << " " << sta.name ;
     return os;
 }
 
