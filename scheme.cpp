@@ -4,25 +4,26 @@
 using namespace std;
 
 
-/* using x = cons(num(3),num(9)); */
-using y = list<num(4),num(1),num(7)>;
+using a = list<num(2)>;
+using x = cons(list<num(1)>,list<num(1)>);
+using y = list<num(1)>;
+using z = cons(y,y);
+
+
+template<typename T>
+struct setcartoA {
+    /* data */
+};
+
 /* using z = list<>; */
 
-/* constexpr auto c = is_nil<y>; */
-/* constexpr auto m = If( car(x)::value == car(y)::value ) */
-/*                     Then(car(car(cons(x,y)))) */
-/*                     Else(car(car(cons(y,x)))) */
-/*                                                 ::value; */
+/* constexpr auto c = is_nil<z>; */
+
 int main(void)
 {
-    cout<<  car(cdr(cdr(y))) ::value <<endl;
+    cout<< is_same_type(x,z) <<endl;
     /* cout<< c <<endl; */
 
-    /* cout<< typeid(typeof(num(1))).name() <<endl; */
-    /* cout<< typeid(num(1)).name() <<endl; */
-    /* cout<< typeid(car(cdr(cons(num(3),cons(num(7),num(9)))))).name() <<endl; */
-    /* cout<< typeid(typeof(car(cons(num(3),num(7))))).name() <<endl; */
-    /* cout<< typeid(car(y)).name() <<endl; */
 
     /* auto &&x = make_index_sequence_own<6>::value ; */
     /* for (int i = 0; i < 6; ++i) { */
