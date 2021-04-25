@@ -70,7 +70,6 @@ void FileIo::FileIoRoute(){
     }
 
     auto& instance = Map::getMapInstance();
-    auto& buses_map = instance.bus_map;
     auto& station_map = instance.station_map;
     
     int start,end,distance_,bus_no;
@@ -80,10 +79,8 @@ void FileIo::FileIoRoute(){
 
 
         Route* out_route = new Route(bus_no,distance_,&tail);
-        Route* in_route = new Route(bus_no,distance_,&font);
 
         font.add_out_station(out_route);
-        tail.add_in_station(in_route);
     }
     ifstrm.close();
     cout<< "加载成功" << Config::fnroute << endl;

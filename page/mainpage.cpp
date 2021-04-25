@@ -15,96 +15,72 @@ void clearBuf(){
     while((ch = getchar()) != EOF && ch != '\n')
         ;
 }
-char getKeyvalue(){
-    char ch;
+int getKeyvalue(int max_num){
+    int ch;
     while(cin>>ch){
         clearBuf();
-        if(ch < '0' || ch > '9'){
+        if(ch < 0 || ch >= max_num){
             cout<< "输入有误,请重新输入" <<endl;
             continue;
         }
         return ch;
     }
-    return '0';
+    return 0;
 }
 
-void MainPage(){
+Fun_next MainPage(){
+    cout<<endl;
     cout<< "公交管理系统" <<endl;
     cout<< "按下数字键选择选项:" <<endl;
-    cout<<"公交管理系统"<<endl;
     cout<< "0: 退出" <<endl;
     cout<< "1: 查找公交线路" <<endl;
     cout<< "2: 查询两站点之间路线(至多换乘一次)" <<endl;
     cout<< "3: 增添数据" <<endl;
-    cout<< "4: 修改数据" <<endl;
-    cout<< "5: 删除数据" <<endl;
-    cout<< "6: 查找站点" <<endl;
+    cout<< "4: 删除数据" <<endl;
+    cout<< "5: 查找站点" <<endl;
+    cout<< "6: 更新数据" <<endl;
+
+    static const std::array<Fun_page,7> func_page = {NullPage,Page1,Page2,Page3,Page4,Page5,Page6};
 
 
-    switch(getKeyvalue()){
-        case '0':
-            system("clear");
-            return;
-        case '1':
-            system("clear");
-            return Page1();
-        case '2':
-            system("clear");
-            return Page2();
-        case '3':
-            system("clear");
-            return Page3();
-        case '4':
-            system("clear");
-            return Page4();
-        case '5':
-            system("clear");
-            return Page5();
-        case '6':
-            system("clear");
-            int sta_no;
-            sta_no =  searchStation();
-            if(sta_no < 0){
-                cout<< "不存在该站点编号" <<endl;
-            } else{
-                cout<< station_map[sta_no];
-            }
-            return MainPage();
-        default:
-            system("clear");
-            cout<< "请重新选择选项[ 0 - 6 ]" <<endl;
-            return MainPage();
+    Fun_next next_page = func_page[getKeyvalue(func_page.size())]();
+    while(next_page != NULL){
+        next_page = ((Fun_page)next_page) ();
     }
+    return NULL;
 }
 
-void Page1(){
+inline constexpr Fun_next NullPage()noexcept{
+    return NULL;
+}
+
+Fun_next Page1(){
     cout<< "0: 退出" <<endl;
     cout<< "1: 通过公交线路编号查找" <<endl;
     cout<< "2: 通过站点编号查找所有经过的路线并输出" <<endl;
 
-    switch(getKeyvalue()){
-        case '0':
-            system("clear");
-            return MainPage();
-        case '1':
-            search_By_busno();
-            return Page1();
-        case '2':
-            system("clear");
-            search_By_stationno();
-            return Page1();
-        default:
-            system("clear");
-            cout<< "请重新选择选项[ 0 - 2 ]" <<endl;
-            return Page1();
-    }
+    static const std::array<Fun_page,3> next_page = {MainPage,Page11,Page12};
+
+    int next_page_no = getKeyvalue(next_page.size());
+    return (Fun_next)next_page[next_page_no];
+}
+
+Fun_next Page11(){
+    search_By_busno();
+    return (Fun_next)Page1;
 }
 
 void search_By_busno(){
     cout<< "请输入线路编号" <<endl;
     int no_bus;
     cin>>no_bus;
+    clearBuf();
     printRouteBybusno(no_bus);
+}
+
+Fun_next Page12(){
+    search_By_stationno();
+    return (Fun_next)Page1;
 }
 
 void search_By_stationno(){
@@ -119,16 +95,13 @@ void search_By_stationno(){
     for (auto i : (sta.out_station)) {
         arr_line.insert((*i).bus_no);
     }
-    for (auto i : (sta.in_station)) {
-        arr_line.insert((*i).bus_no);
-    }
 
     for (auto& i : arr_line) {
         printRouteBybusno(i);
     }
 }
 
-void Page2(){
+Fun_next Page2(){
     int start,end;
     cout<< "起始站:" <<endl;
     while ((start = searchStation()) < 0) {
@@ -139,27 +112,54 @@ void Page2(){
         cout<< "不存在该站点编号,请重新输入" <<endl;
     }
 
-    set<int> forward_travel;
-    for (auto i = station_map[start].out_station.begin(); i != station_map[start].out_station.end(); ++i) {
-        vector<int> bus_route;
-        bus_route.push_back((*i)->bus_no);
-        travelRoute(*i,[&end,&bus_route](Route*const route){
+    set<int> visited;
+    vector<Route*> route;
+    vector<int> bus_num;
 
-                if(route->next_station->no == end){
-                    return ;
-                }else{
-                    bus_route.push_back(route->next_station->no);
-                }
+    visited.insert(start);
 
-                if(route->next_route == nullptr){
-                    return;
-                }
+    searchRoute(visited,route,start,end,bus_num,station_map[start]);
 
-            });
-        
+    return (Fun_next)MainPage;
+}
+
+void searchRoute(set<int>& visited , vector<Route*>& route,int const& start, int const& end , vector<int>& bus_num , Station const& begin){
+    if(start == end){
+        cout<< "【" << begin << "】" ;
+        for (auto i = route.begin(); i != route.cend(); ++i) {
+            cout<< "--no:" << (*i)->bus_no << " --" << (*i)->distance_ << "m->【" << *(*i)->next_station << "】";           
+        }
+        cout<< endl;
+        return;
     }
 
+    Station& sta = station_map[start];
+    for (auto i = sta.out_station.begin(); i != sta.out_station.end(); ++i) {
+        int no = (*i)->next_station->no;
+        if(visited.count(no)){
+            return;
+        }
 
+        bus_num.push_back((*i)->bus_no);
+        int count_num = 0;
+        for (auto j = bus_num.begin(); j != bus_num.end()-1; ++j) {
+            if(*j != *(j+1)){
+                count_num ++;
+            }
+        }
+        if(count_num > 1){
+            return;
+        }
+
+        visited.insert(no);
+        route.push_back(*i);
+
+        searchRoute(visited,route,no,end,bus_num,begin);
+
+        route.pop_back();
+        visited.erase(visited.find(no));
+        bus_num.pop_back();
+    }
     
 }
 
@@ -237,30 +237,30 @@ int  searchStation(){
     return no_station;
 }
 
-void Page3(){
+Fun_next Page3(){
     cout<< "0: 退出" <<endl;
     cout<< "1: 增加站点" <<endl;
     cout<< "2: 增加公交路线 "<<endl;
 
-    switch(getKeyvalue()){
-        case '0':
-            return MainPage();
-        case '1':
-            addStation();
-            return Page3();
-        case '2':
-            addBus();
-            return Page3();
-        default:
-            system("clear");
-            cout<< "请重新输入" <<endl;
-            return Page3();
-    }
+    static const std::array<Fun_page,3> next_page = {MainPage,Page31,Page32};
+
+    int next_page_no = getKeyvalue(next_page.size());
+    return (Fun_next)next_page[next_page_no];
 }
 
-void addBus(){
+Fun_next Page31(){
+    addStation();
+    return (Fun_next)Page3;
+}
+
+Fun_next Page32(){
+    addBus();
+    return (Fun_next)Page3;
+}
+
+
+int getnoExistBus(){
     int no_bus;
-    cout<< "请输入公交线路编号" <<endl;
     while(cin>>no_bus) {
         clearBuf();
         auto iter_bus = bus_map.find(no_bus);
@@ -269,12 +269,21 @@ void addBus(){
         }
         cout<< "已存在该公交线路编号,请重新输入" << endl;
     }
+    return no_bus;
+}
+
+void addBus(){
+    int no_bus;
+    cout<< "请输入公交线路编号" <<endl;
+    no_bus = getnoExistBus();
     string bus_name;
     cout<< "请输入线路名字" <<endl;
     cin>>bus_name;
+    clearBuf();
     int num;
     cout<< "请输入经过几站[n>=2]"<<endl;
     while(cin>>num){
+        clearBuf();
         if(num < 2){
             cout<< "输入有误，请重新输入"<<endl;
             continue;
@@ -305,6 +314,7 @@ void addBus(){
             string station_name;
             cout<<"请输入站点名字"<<endl;
             cin>>station_name;
+            clearBuf();
             map_instance.addStation(Station( station_no,station_name));
             staion_line.push_back(station_no);
         }
@@ -332,24 +342,160 @@ void addBus(){
             cout<< "请输入【"<< start_station.no << ":" << start_station.name 
                 << "】到【" << end_station.no << ":" << end_station.name <<"】的距离"<<endl;
             cin>>dis;
+            clearBuf();
         }
         Route* out_route = new Route(no_bus,dis,&end_station);
-        Route* in_route = new Route(no_bus,dis,&start_station);
 
         start_station.add_out_station(out_route);
-        end_station.add_in_station(in_route);
 
     }
     Buses bus(no_bus , bus_name , staion_line[0] , staion_line[staion_line.size()-1]  );
     map_instance.addBus(bus);
 }
 
-void Page4(){
+Fun_next Page4(){
+    cout<< "0: 退出" <<endl;
+    cout<< "1: 删除线路" <<endl;
+    cout<< "2: 删除站点" <<endl;
+
+    static const std::array<Fun_page,3> next_page = {MainPage,Page41,Page42};
+
+    int next_page_no = getKeyvalue(next_page.size());
+    return (Fun_next)next_page[next_page_no];
+}
+
+Fun_next Page41(){
+    deleteBus();
+    return (Fun_next)Page4;
+}
+
+Fun_next Page42(){
+    deleteStation();
+    return (Fun_next)Page4;
+}
+
+void deleteBus(){
+    cout<< "请输入删除公交编号:" <<endl;
+    int no_bus;
+    no_bus = getExistBus();
+    
+    for (auto& i : station_map) {
+        auto& rou = i.second.out_station;
+        for (auto j = rou.begin(); j != rou.end(); ++j) {
+            if((*j)->bus_no == no_bus){
+                delete *j;
+                rou.erase(j);
+                break;
+            }
+        }
+    }   
+
+    bus_map.erase(bus_map.find(no_bus));
+}
+
+void deleteStation(){
+    int sta_no;
+    cout<< "请输入删除的站点编号" <<endl;
+    sta_no = getExistStation();
+
+    set<int> bus_link;
+    for (auto& i : station_map[sta_no].out_station) {
+        bus_link.insert(i->bus_no);
+    }
+    for (auto& i : station_map) {
+        auto& rou = i.second.out_station;
+        for (auto j = rou.begin(); j != rou.end(); ++j) {
+            if(bus_link.count((*j)->bus_no)){
+                delete *j;
+                rou.erase(j);
+            }
+        }
+    }
+
+    for (auto& i : bus_link) {
+        bus_map.erase(bus_map.find(i));
+    }
+    station_map.erase(station_map.find(sta_no));
+}
+
+int getExistStation(){
+    int sta_no;
+    while(cin>>sta_no){
+        clearBuf();
+        if(station_map.find(sta_no) != station_map.end()){
+            break;
+        }
+        cout<< "输入站点编号不存在" <<endl;
+    }
+    return sta_no;
+}
+
+void updateStationName(){
+    int sta_no;
+    cout<< "请输入要更新的站点编号" <<endl;
+    sta_no = getExistStation();
+    cout<< "请输入更新后的名字" <<endl;
+    string new_name;
+    cin>> new_name;
+    clearBuf();
+    station_map[sta_no].name = new_name;
+}
+
+int getExistBus(){
+    int bus_no;
+    while (cin>>bus_no){
+        clearBuf();
+        if(bus_map.find(bus_no) != bus_map.end()){
+            break;
+        }
+        cout<< "输入的公交编号不存在" <<endl;
+    }
+    return bus_no;
+}
+
+void updateBusName(){
+    int bus_no;
+    cout<< "请输入要更新的公交编号" <<endl;
+    bus_no = getExistBus();
+    cout<< "请输入更新后的名字" <<endl;
+    string new_name;
+    cin>> new_name;
+    clearBuf();
+    bus_map[bus_no].name = new_name;
+}
+
+Fun_next Page5(){
+    int sta_no =  searchStation();
+
+    if(sta_no < 0){
+        cout<< "不存在该站点编号" <<endl;
+    } else{
+        cout<< station_map[sta_no] <<endl;
+    }
+
+    return (Fun_next)MainPage;
+}
+
+Fun_next Page6(){
+    cout<< "0: 退出"<<endl;
+    cout<< "1: 更新站点名称" <<endl;
+    cout<< "2: 更新公交名称" <<endl;
+
+    static const std::array<Fun_page,3> next_page = {MainPage,Page61,Page62};
+    int next_page_no = getKeyvalue(next_page.size());
+    return (Fun_next)next_page[next_page_no];
 
 }
 
-void Page5(){
+Fun_next Page61(){
+        updateStationName();
+        return (Fun_next)Page6;
+}
 
+Fun_next Page62(){
+    updateBusName();
+    return (Fun_next)Page6;
 }
 
 #endif
+

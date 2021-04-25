@@ -1,4 +1,5 @@
-
+install:
+	-g++ -std=c++20 -o MAIN page/main.cpp
 
 .PHONY : clean
 clean:
