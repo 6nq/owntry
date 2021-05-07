@@ -28,3 +28,5 @@ nodejs
 yarn
 
 vim-gtk支持复制到系统剪切板,命令为 "+y
+repgrep
+在键盘中实现vim多模式编辑
