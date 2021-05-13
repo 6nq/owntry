@@ -89,5 +89,4 @@ struct list<> {
 template<typename T>
 constexpr bool is_nil= is_same_type(typename T::type,nil);
 
-
 #endif
