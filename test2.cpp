@@ -4,13 +4,13 @@
 using namespace std;
 
 
-template<typename T,typename fun_obj>
+template<typename T,typename Lambda>
 auto own_search( typename std::vector<T,std::allocator<T>> ::iterator
                     const& left,
                 typename std::vector<T,std::allocator<T>> ::iterator
                     const& right,
                 T const& target,
-                fun_obj const& compare_ ){
+                Lambda const& compare_ ){
     if(left > right){
         printf("out\n");
         if(compare_((*left),(*right)) > 0){
@@ -26,18 +26,18 @@ auto own_search( typename std::vector<T,std::allocator<T>> ::iterator
         printf("find\n");
         return make_pair(middle,middle);
     }else if(flag > 1){
-        return own_search(left,middle,target,compare_);
+        return own_search(left,middle-1,target,compare_);
     }else{
-        return own_search(middle,right,target,compare_);
+        return own_search(middle+1,right,target,compare_);
     }
 }
 
 template<typename T>
 auto own_search( typename std::vector<T,std::allocator<T>> ::iterator
-                    const& left,
+                    const&& left,
                 typename std::vector<T,std::allocator<T>> ::iterator
-                    const& right,
-                T const& target
+                    const&& right,
+                T const&& target
         ){
     return own_search(left,right,target,[](T const& x, T const &y)->int{
                                                 return x-y;
@@ -70,7 +70,7 @@ int main(void)
     vector<int> v = {1,3,5 ,8,13,43};   
 
     printf("search begin\n");
-    auto&& y = own_search(v.begin(), v.end(), 5);
+    auto&& y = own_search(v.begin(), v.end(), 3);
     /* auto&& y = own_search(v.begin(), v.end(), 5, [](auto const& x,auto const& y)->int { */
     /*                                                     printf("cmp\n"); */
     /*                                                     return (x-y); */ 
